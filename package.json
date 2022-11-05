@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Shernandez927/Compendium#readme",
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "bulma": "^0.9.4",
     "connect-session-sequelize": "^7.1.5",
     "dotenv": "^16.0.3",
     "express-handlebars": "^6.0.6",

@@ -1,7 +1,9 @@
+// Imports Express, Blog Model, and withAuth helper function
 const router = require("express").Router();
 const { Blog } = require("../../models");
 const withAuth = require("../../utils/auth");
 
+// Creates new blog with given request body
 router.post("/", withAuth, async (req, res) => {
   try {
     const newBlog = await Blog.create({
@@ -15,6 +17,7 @@ router.post("/", withAuth, async (req, res) => {
   }
 });
 
+// Edits blog existing blog post by ID
 router.put("/:id", async (req, res) => {
   try {
     const updatedBlog = await Blog.update(req.body, {
@@ -28,6 +31,7 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+// Deletes Existing blog post by ID
 router.delete("/:id", withAuth, async (req, res) => {
   try {
     const blogData = await Blog.destroy({
