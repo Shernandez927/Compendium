@@ -20,15 +20,19 @@
       </div>
     <div class="navbar-menu" id="navbar-links">
         <div class="navbar-end">
-          <a class="navbar-item" href="#"> Home </a>
-          <a class="navbar-item" href="#"> Login </a>
-          <a class="navbar-item" href="#"> Sign Up </a>
+          <a class="navbar-item" href="/">Home</a>
+          {{#if loggedIn}}
+          <a class="navbar-item" href="">Logout</a>
+          {{else}}
+          <a class="navbar-item" href="/login">Login</a>
+          <a class="navbar-item" href="/signup">Sign Up</a>
+          {{/if}}
         </div>
       </div>
     </nav>
 
     <div class="hero has-background-info-light is-fullheight has-text-centered">
-
+      {{ body }}
     </div>
 
     <footer class="footer has-background-info-light has-text-centered">
@@ -38,7 +42,7 @@
         <a href="https://github.com/Shernandez927" target="_blank">Shelby
           Hernandez</a></p>
     </footer>
-    <script src="script.js"></script>
+    
 
   </body>
 
