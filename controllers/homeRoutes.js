@@ -1,5 +1,5 @@
 const router = require("express").Router();
-
+const sequelize = require("../config/connection");
 const { User, Post, Comment } = require("../models");
 
 router.get("/", async (req, res) => {
@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
     });
     const posts = postData.map((post) => post.get({ plain: true }));
 
-    res.render("homepage", {
+    res.render("dashboard", {
       posts,
       loggedIn: req.session.loggedIn,
     });
@@ -30,18 +30,19 @@ router.get("/", async (req, res) => {
 router.get("/post/:id", async (req, res) => {
   try {
     const postData = await Post.findOne({
-        where: {
-            id: req.params.id
-        },
-        attributes: ["id", "title", "content", "created_at"],
+      where: {
+        id: req.params.id,
+      },
+      attributes: ["id", "title", "content", "created_at"],
       include: [
         {
           model: User,
-          attributes: ["name"],
+          attributes: ["username"],
         },
         {
           model: Comment,
           attributes: ["id", "text", "created_at", "user_id", "post_id"],
+          include: { model: User, attributes: ["username"] },
         },
       ],
     });
@@ -58,21 +59,21 @@ router.get("/post/:id", async (req, res) => {
 });
 
 router.get("/login", (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect("/");
-        return;
-    }
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
 
-    res.render("login");
+  res.render("login");
 });
 
 router.get("/signup", (req, res) => {
-    if (req.session.loggedIn) {
-        res.redirect("/");
-        return;
-    }
+  if (req.session.loggedIn) {
+    res.redirect("/");
+    return;
+  }
 
-    res.render("signup");
-})
+  res.render("signup");
+});
 
 module.exports = router;
